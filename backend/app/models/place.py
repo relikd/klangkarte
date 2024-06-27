@@ -10,7 +10,6 @@ from pathlib import Path
 from PIL import Image, ImageOps
 from tinymce.models import HTMLField
 from map_location.fields import LocationField
-# default_app_config = 'map_location.apps.MapLocationConfig'
 
 from app.models.category import Category
 from common.form.audio_file import AudioFileField
@@ -41,7 +40,6 @@ class Place(models.Model):
     title = models.CharField('Titel', max_length=100)
     image = FileWithImagePreview('Bild', blank=True, null=True,
                                  upload_to=overwrite_img_upload)
-    # help_text='Ideal: 600 x 400 px (JPEG oder PNG)'
     audio = AudioFileField('Audio', blank=True, null=True,
                            upload_to=overwrite_audio_upload)
     location = LocationField('Position', blank=True, null=True, options={
@@ -81,13 +79,6 @@ class Place(models.Model):
         self.update_cover_image()
         Place.update_json()
         return rv
-
-    # def delete(self, *args, **kwargs):
-    #     theId = str(self.pk)
-    #     rv = super().delete(*args, **kwargs)
-    #     shutil.rmtree(settings.MEDIA_ROOT / theId, ignore_errors=True)
-    #     self.update_json()
-    #     return rv
 
     def update_cover_image(self):
         path = self.fixed_os_path('cov.jpg')
