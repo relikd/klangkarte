@@ -117,6 +117,6 @@ class Place(models.Model):
 
 
 @receiver(post_delete, sender=Place)
-def on_delete_Audiofile(sender, instance: 'Place', using, **kwargs):
+def on_delete_Place(sender, instance: 'Place', using, **kwargs):
     shutil.rmtree(settings.MEDIA_ROOT / str(instance.pk), ignore_errors=True)
     Place.update_json()

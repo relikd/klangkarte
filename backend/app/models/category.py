@@ -51,5 +51,5 @@ class Category(models.Model):
 
 
 @receiver(post_delete, sender=Category)
-def on_delete_Audiofile(sender, instance: 'Category', using, **kwargs):
+def on_delete_Category(sender, instance: 'Category', using, **kwargs):
     Category.update_json()
