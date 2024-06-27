@@ -1,0 +1,5 @@
+Django==4.2.13
+Pillow==10.3.0
+django_colorfield==0.11.0
+django-tinymce==4.0.0
+django-map-location==0.9.1

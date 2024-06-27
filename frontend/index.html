@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <title>Klangkarte</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ico/32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ico/16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
+  <link rel="manifest" href="/ico/manifest.json">
+  <meta name="msapplication-config" content="/ico/browserconfig.xml">
+
+  <script src="/3p/bootstrap/bootstrap.min.js"></script>
+  <script src="/3p/leaflet/leaflet.js"></script>
+  <script src="/3p/leaflet/locate/L.Control.Locate.min.js"></script>
+  <script src="/3p/lozad.min.js"></script>
+  <script src="/script.js"></script>
+  <link rel="stylesheet" href="/3p/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="/3p/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="/3p/leaflet/locate/L.Control.Locate.css" />
+  <link rel="stylesheet" href="/style.css" />
+  <style id="colors"></style>
+</head>
+
+<body>
+  <div id="spin" class="position-absolute w-100 h-100 bg-dark bg-opacity-25">
+    <div class="position-absolute top-50 start-50">
+      <div class="spinner-border text-white" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail" class="modal fade" tabindex="-1" aria-labelledby="detail-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-lg-down">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="detail-title">Title</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <audio controls preload="none">
+            <source src="" type="audio/mpeg">
+            Audio vom Browser nicht unterstüzt
+          </audio>
+
+          <small class="text-body-secondary">Typ:</small>
+          <span class="badge border">__CAT__</span>
+
+          <div id="detail-desc" class="py-2 mt-2">Description</div>
+
+          <small class="text-body-secondary">Foto:</small>
+          <div class="d-flex justify-content-center">
+            <img src="" alt="Kein Bild vorhanden" class="rounded">
+          </div>
+
+          <div id="detail-map-container">
+            <small class="text-body-secondary">Karte:</small>
+            <div id="detail-map"></div>
+            <div class="hstack gap-2 small">
+              <a id="osm-link" class="small link-secondary">OpenStreetMap</a>
+              <a id="g-maps" class="small link-secondary">Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="notice" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-fullscreen-md-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Description</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="map" class="d-none d-md-block"></div>
+  <div id="card-container" class="shadow-lg bg-success-subtle">
+    <h1 class="fs-4 text-center m-2 mb-4">Klangkarte
+      <a class="small text-decoration-none" title="Info" href="" onclick="return showNotice('info')">?⃝</a>
+    </h1>
+    <div id="cards">
+      <div id="card-template" class="card shadow-sm">
+        <img class="card-img-top lozad" alt="Kein Bild">
+        <div class="card-footer">
+          <h3 class="fs-5 card-title">__NAME__</h3>
+          <small class="card-text text-body-secondary">Typ:</small>
+          <span class="badge border">__CAT__</span>
+        </div>
+        <a class="stretched-link"></a>
+      </div>
+    </div>
+    <div class="text-center m-2 mt-4">
+      <a class="small" href="" onclick="return showNotice('imprint')">Impressum</a>
+    </div>
+  </div>
+
+  <script defer>start()</script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+services:
+  app:
+    container_name: klangkarte
+    build:
+      context: .
+      # dockerfile: .
+    pull_policy: build
+    ports:
+      - 127.0.0.1:8070:8000
+    image: klangkarte:latest
+    working_dir: /django_project
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      DEBUG: ${DEBUG:-0}
+    volumes:
+      - volume-klangkarte:/django_project/db
+      - /srv/http/klangkarte-data:/django_project/data
+      - /srv/http/klangkarte-static:/django_project/static
+    restart: unless-stopped
+    networks:
+      - network-klangkarte
+
+volumes:
+  volume-klangkarte:
+    name: klangkarte
+
+networks:
+  network-klangkarte:
+    name: klangkarte

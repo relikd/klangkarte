@@ -1,0 +1,8 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+
+msgid "File size too large (max. %(limit_value)s)."
+msgstr "Datei zu groß (max. %(limit_value)s)."
