@@ -12,6 +12,7 @@ services:
     environment:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
       ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      ADMIN_URL: ${ADMIN_URL}
       DEBUG: ${DEBUG:-0}
     volumes:
       - volume-klangkarte:/django_project/db
