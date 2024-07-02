@@ -1,0 +1,29 @@
+[
+    {
+        "model": "app.content",
+        "fields": {
+            "key": "info",
+            "title": "About",
+            "body": "about this project",
+            "wide": true
+        }
+    },
+    {
+        "model": "app.content",
+        "fields": {
+            "key": "imprint",
+            "title": "Imprint",
+            "body": "your imprint",
+            "wide": false
+        }
+    },
+    {
+        "model": "app.content",
+        "fields": {
+            "key": "come-back-later",
+            "title": "Not Available",
+            "body": "come back later",
+            "wide": false
+        }
+    }
+]
