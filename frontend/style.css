@@ -20,6 +20,14 @@ html, body {
   overflow: auto;
   /* filter: drop-shadow(0 0 2px #000); */
 }
+#info svg {
+  width: .75em;
+  height: .75em;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  fill: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity,1));
+}
 
 .card {
   margin: 8px;
