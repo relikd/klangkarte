@@ -82,15 +82,25 @@
     </div>
   </div>
 
-  <div id="map" class="d-none d-md-block"></div>
-  <div id="card-container" class="shadow-lg bg-success-subtle">
-    <h1 class="fs-4 text-center m-2 mb-4">Klangkarte
-      <a id="info" class="text-decoration-none" title="Info" href="" onclick="return showNotice('info')">
-        <svg>
-          <use href="/icons.svg#info"></use>
-        </svg>
-      </a>
-    </h1>
+  <div id="map-container">
+    <button id="btn-show-list" class="btn btn-light btn-outline-success btn-sm" title="Liste anzeigen"
+      onclick="hideTab('map')">
+      zur Liste
+    </button>
+    <div id="map"></div>
+  </div>
+
+  <div id="list-container" class="hidden-tab shadow-lg bg-success-subtle">
+    <button id="btn-show-map" class="btn btn-light btn-outline-success btn-sm" title="Karte anzeigen"
+      onclick="hideTab('list')">
+      zur Karte
+    </button>
+    <a id="info" class="text-decoration-none" title="Info" href="" onclick="return showNotice('info')">
+      <svg>
+        <use href="/icons.svg#info"></use>
+      </svg>
+    </a>
+    <h1 class="fs-4 text-center m-2 mb-4">Klangkarte</h1>
     <div id="cards">
       <div id="card-template" class="card shadow-sm">
         <img class="card-img-top lozad" alt="Kein Bild">

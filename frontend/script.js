@@ -115,6 +115,12 @@ function showNotice(id) {
     return false;
 }
 
+function hideTab(tab) {
+    document.getElementById('map-container').classList.remove('hidden-tab');
+    document.getElementById('list-container').classList.remove('hidden-tab');
+    document.getElementById(tab + '-container').classList.add('hidden-tab');
+}
+
 // ---------------------
 // Initializer
 // ---------------------

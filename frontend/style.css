@@ -2,15 +2,20 @@ html, body {
   height: 100%;
   margin: 0;
 }
-#map {
+#map-container {
   width: calc(100% - 316px);
+  height: 100%;
+  position: relative;
+}
+#map {
+  width: 100%;
   height: 100%;
 }
 #detail-map {
   width: 100%;
   height: 200px;
 }
-#card-container {
+#list-container {
   position: absolute;
   right: 0;
   top: 0;
@@ -20,13 +25,24 @@ html, body {
   overflow: auto;
   /* filter: drop-shadow(0 0 2px #000); */
 }
-#info svg {
-  width: .75em;
-  height: .75em;
+
+#btn-show-map {
+  margin: 8px;
+}
+#btn-show-list {
   position: absolute;
   top: 8px;
   right: 8px;
-  fill: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity,1));
+  z-index: 810;
+}
+
+#info svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  fill: rgba(var(--bs-success-rgb), var(--bs-link-opacity, 1));
 }
 
 .card {
@@ -96,9 +112,21 @@ html, body {
   width: 100%;
 }
 
-@media(max-width: 768px) {
-  #card-container {
+/* responsive toggle */
+
+#btn-show-map, #btn-show-list {
+  display: none;
+}
+
+@media(max-width: 600px) {
+  #btn-show-map, #btn-show-list {
+    display: unset;
+  }
+  #map-container, #list-container {
     width: 100%;
+  }
+  .hidden-tab {
+    display: none;
   }
   .card img {
     height: calc(100vw * 2/3);
