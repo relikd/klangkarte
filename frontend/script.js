@@ -230,7 +230,10 @@ function setDetailMarker(place) {
 
 async function initMainMap() {
     const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        attribution: [
+            '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            '<a href="" onclick="return showNotice(\'imprint\')">Impressum</a>',
+        ].join(' | '),
     });
     const map = L.map('map', {
         layers: [osm],
