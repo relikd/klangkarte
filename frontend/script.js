@@ -61,7 +61,13 @@ function setBadge(div, category) {
 function loadAudio(detailDiv, srcUrl) {
     const x = detailDiv.querySelector('audio');
     x.hidden = !srcUrl;
-    x.querySelector('source').src = srcUrl || '';
+    x.querySelectorAll('source').forEach(x => x.remove());
+    if (srcUrl) {
+        const audioSrc = document.createElement('source');
+        audioSrc.src = srcUrl;
+        audioSrc.type = 'audio/mpeg';
+        x.appendChild(audioSrc);
+    }
     x.load(); // stops playing and reloads source
 }
 
