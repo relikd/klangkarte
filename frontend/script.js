@@ -86,7 +86,11 @@ function selectPin(e) {
 }
 
 function unselectPin(e) {
-    document.getElementById('pin-' + e.target.dataset.pk)
+    unselectPinById(e.target.dataset.pk);
+}
+
+function unselectPinById(pid) {
+    document.getElementById('pin-' + pid)
         .parentNode.classList.remove('selected');
 }
 
@@ -303,6 +307,7 @@ async function start() {
 function onHashChange() {
     if (location.hash.length > 1) {
         const [id, pw] = location.hash.slice(1).split(':', 1);
+        unselectPinById(id);
         openDetails(id, pw);
     } else {
         clearDetails();
