@@ -1,13 +1,20 @@
-from django import forms
 from django.conf import settings
-from django.contrib.admin.widgets import AdminFileWidget
-from django.core.validators import FileExtensionValidator
+from django.core.files.uploadedfile import UploadedFile
 from django.db import models
-from django.forms import FileInput, widgets
+from django.forms import widgets
 
-from common.validators import MaxFilesizeValidator, readableToInt
+from PIL import Image, ImageOps
 
-MAX_UPLOAD_SIZE = '312 KB'
+
+def makeThumnail(data: UploadedFile, size: 'tuple[int, int]'):
+    with Image.open(data) as img:
+        ImageOps.exif_transpose(img, in_place=True)
+        img.thumbnail(size)
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        data.seek(0)
+        data.truncate()
+        img.save(data, 'jpeg')
 
 
 class ImageFileWidget(widgets.ClearableFileInput):
@@ -19,38 +26,19 @@ class ImageFileWidget(widgets.ClearableFileInput):
         return context
 
 
-class ImgField(forms.FileField):
-    widget = ImageFileWidget
-    default_validators = [
-        FileExtensionValidator(['jpg', 'jpeg', 'png']),
-        MaxFilesizeValidator(MAX_UPLOAD_SIZE),
-    ]
-
-    def widget_attrs(self, widget):
-        attrs = super().widget_attrs(widget)
-        if isinstance(widget, FileInput) and 'accept' not in widget.attrs:
-            attrs.setdefault('accept', 'image/png,image/jpeg')  # image/*
-        if isinstance(widget, ImageFileWidget):
-            attrs.update({
-                'data-upload-limit': readableToInt(MAX_UPLOAD_SIZE),
-                'data-upload-limit-str': MAX_UPLOAD_SIZE,
-                'onchange': 'validate_upload_limit(this)',
-            })
-        return attrs
-
-
-class FileWithImagePreview(models.FileField):  # use ImageField to omit Pillow
+class ThumbnailImageField(models.ImageField):
     __del_image_on_save = False
 
     def formfield(self, **kwargs):
-        if kwargs['widget'] is AdminFileWidget:
-            # Override admin widget. Defined by ImgField anyway
-            del kwargs['widget']
-        return super().formfield(**{'form_class': ImgField, **kwargs})
+        kwargs['widget'] = ImageFileWidget
+        return super().formfield(**kwargs)
 
     def save_form_data(self, instance, data):
         if data is False:
             self.__del_image_on_save = True
+        if isinstance(data, UploadedFile):
+            makeThumnail(data, (1200, 900))  # only on create
+            # on update: django.db.models.fields.files.ImageFieldFile
         super().save_form_data(instance, data)
 
     def pre_save(self, model_instance, add):

@@ -13,7 +13,7 @@ from map_location.fields import LocationField
 
 from app.models.category import Category
 from common.form.audio_file import AudioFileField
-from common.form.img_with_preview import FileWithImagePreview
+from common.form.img_with_preview import ThumbnailImageField
 
 
 def overwrite_img_upload(instance: 'Place', filename: str):
@@ -38,8 +38,8 @@ class Place(models.Model):
     sort = models.IntegerField('Sortierung', default=0)
     isExtended = models.BooleanField('Bis 1.1.2025 verstecken')
     title = models.CharField('Titel', max_length=100)
-    image = FileWithImagePreview('Bild', blank=True, null=True,
-                                 upload_to=overwrite_img_upload)
+    image = ThumbnailImageField('Bild', blank=True, null=True,
+                                upload_to=overwrite_img_upload)  # type: ignore
     audio = AudioFileField('Audio', blank=True, null=True,
                            upload_to=overwrite_audio_upload)
     location = LocationField('Position', blank=True, null=True, options={

@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
                 ('sort', models.IntegerField(default=0, verbose_name='Sortierung')),
                 ('isExtended', models.BooleanField(verbose_name='Bis 1.1.2025 verstecken')),
                 ('title', models.CharField(max_length=100, verbose_name='Titel')),
-                ('image', common.form.img_with_preview.FileWithImagePreview(blank=True, null=True, upload_to=app.models.place.overwrite_img_upload, verbose_name='Bild')),
+                ('image', common.form.img_with_preview.ThumbnailImageField(blank=True, null=True, upload_to=app.models.place.overwrite_img_upload, verbose_name='Bild')),
                 ('audio', common.form.audio_file.AudioFileField(blank=True, null=True, upload_to=app.models.place.overwrite_audio_upload, verbose_name='Audio')),
                 ('location', map_location.fields.LocationField(blank=True, null=True, verbose_name='Position')),
                 ('description', tinymce.models.HTMLField(verbose_name='Beschreibung')),
