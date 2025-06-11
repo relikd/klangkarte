@@ -69,3 +69,4 @@ class PlaceAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'sort', 'created']
     search_fields = ['title']
     list_filter = ['category']
+    change_list_template = 'admin/place_tools.html'

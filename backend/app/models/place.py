@@ -81,16 +81,17 @@ class Place(models.Model):
         return rv
 
     def update_cover_image(self):
-        path = self.fixed_os_path('cov.jpg')
         if self.image:
             img = Image.open(self.image.path)
             thumb = ImageOps.fit(img, (600, 400))
             # img.thumbnail((600, 400))
-            path.parent.mkdir(parents=True, exist_ok=True)
+            path = self.image.path.replace('img.jpg', 'cov.jpg')
+            # path.parent.mkdir(parents=True, exist_ok=True)
             thumb.save(path, 'jpeg')
-        else:
-            if path.exists():
-                os.remove(path)
+        # else:
+        #     path = self.fixed_os_path('cov.jpg')
+        #     if path.exists():
+        #         os.remove(path)
 
     @staticmethod
     def update_json():
@@ -114,6 +115,11 @@ class Place(models.Model):
                 'desc': x.description,
             })
         return rv
+
+    @staticmethod
+    def recreateThumbnails() -> None:
+        for x in Place.objects.all():
+            x.update_cover_image()
 
 
 @receiver(post_delete, sender=Place)
